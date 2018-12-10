@@ -14,7 +14,7 @@ void metal_io_init(struct metal_io_region *io, void *virt,
 	      unsigned page_shift, unsigned int mem_flags,
 	      const struct metal_io_ops *ops)
 {
-	const struct metal_io_ops nops = {NULL, NULL, NULL, NULL, NULL, NULL};
+	const struct metal_io_ops nops = {};
 
 	io->virt = virt;
 	io->physmap = physmap;
