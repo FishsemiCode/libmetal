@@ -9,9 +9,9 @@
  * @brief	CPU specific primatives
  */
 
-#ifndef __METAL_RISC_V_CPU__H__
-#define __METAL_RISC_V_CPU__H__
+#ifndef __METAL_RISCV_CPU__H__
+#define __METAL_RISCV_CPU__H__
 
 #define metal_cpu_yield()
 
-#endif /* __METAL_RISC_V_CPU__H__ */
+#endif /* __METAL_RISCV_CPU__H__ */
