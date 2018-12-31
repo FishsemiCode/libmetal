@@ -35,8 +35,10 @@
 
 ifeq ($(CONFIG_OPENAMP),y)
 
+LIBMETAL_ARCH = $(subst -,,$(CONFIG_ARCH))
+
 LIBMETAL_HDRS += $(wildcard $(SRCDIR)/libmetal/lib/compiler/gcc/*.h)
-LIBMETAL_HDRS += $(wildcard $(SRCDIR)/libmetal/lib/processor/$(CONFIG_ARCH)/*.h)
+LIBMETAL_HDRS += $(wildcard $(SRCDIR)/libmetal/lib/processor/$(LIBMETAL_ARCH)/*.h)
 LIBMETAL_HDRS += $(wildcard $(SRCDIR)/libmetal/lib/system/nuttx/*.h)
 LIBMETAL_HDRS += $(wildcard $(SRCDIR)/libmetal/lib/*.h)
 
@@ -63,10 +65,10 @@ LIBMETAL_HDRS_SEDEXP := \
 	 s/@PROJECT_VER_PATCH@/0/g; \
 	 s/@PROJECT_VER@/0.1.0/g; \
 	 s/@PROJECT_SYSTEM@/nuttx/g; \
-	 s/@PROJECT_PROCESSOR@/$(subst -,,$(CONFIG_ARCH))/g; \
+	 s/@PROJECT_PROCESSOR@/$(LIBMETAL_ARCH)/g; \
 	 s/@PROJECT_MACHINE@/$(CONFIG_ARCH_CHIP)/g; \
 	 s/@PROJECT_SYSTEM_UPPER@/nuttx/g; \
-	 s/@PROJECT_PROCESSOR_UPPER@/$(subst -,,$(CONFIG_ARCH))/g; \
+	 s/@PROJECT_PROCESSOR_UPPER@/$(LIBMETAL_ARCH)/g; \
 	 s/@PROJECT_MACHINE_UPPER@/$(CONFIG_ARCH_CHIP)/g; \
 	 s/cmakedefine/undef/g"
 
