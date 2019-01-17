@@ -13,5 +13,6 @@
 #define __METAL_RISCV_CPU__H__
 
 #define metal_cpu_yield()
+#define __sync_synchronize()
 
 #endif /* __METAL_RISCV_CPU__H__ */
