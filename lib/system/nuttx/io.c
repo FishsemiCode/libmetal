@@ -72,18 +72,6 @@ static void metal_io_close_(struct metal_io_region *io)
 {
 }
 
-static void* metal_io_offset_to_virt_(struct metal_io_region *io,
-				      unsigned long offset)
-{
-	return (void *)offset;
-}
-
-static unsigned long metal_io_virt_to_offset_(struct metal_io_region *io,
-					      void* virt)
-{
-	return (unsigned long)virt;
-}
-
 static metal_phys_addr_t metal_io_offset_to_phys_(struct metal_io_region *io,
 						  unsigned long offset)
 {
@@ -102,7 +90,7 @@ static struct metal_io_region metal_io_region_ = {
 	.virt = NULL,
 	.physmap = &metal_io_phys_start_,
 	.size = (size_t)-1,
-	.page_shift = sizeof(metal_phys_addr_t) << 3,
+	.page_shift = sizeof(metal_phys_addr_t) * CHAR_BIT,
 	.page_mask = (metal_phys_addr_t)-1,
 	.mem_flags = 0,
 	.ops = {
@@ -112,8 +100,6 @@ static struct metal_io_region metal_io_region_ = {
 		.block_write = metal_io_block_write_,
 		.block_set = metal_io_block_set_,
 		.close = metal_io_close_,
-		.offset_to_virt = metal_io_offset_to_virt_,
-		.virt_to_offset = metal_io_virt_to_offset_,
 		.offset_to_phys = metal_io_offset_to_phys_,
 		.phys_to_offset = metal_io_phys_to_offset_,
 	},
@@ -127,14 +113,4 @@ struct metal_io_ops *metal_io_get_ops(void)
 struct metal_io_region *metal_io_get_region(void)
 {
 	return &metal_io_region_;
-}
-
-void *metal_io_patova(metal_phys_addr_t phys)
-{
-	return metal_io_phys_to_virt(metal_io_get_region(), phys);
-}
-
-metal_phys_addr_t metal_io_vatopa(void *virt)
-{
-	return metal_io_virt_to_phys(metal_io_get_region(), virt);
 }

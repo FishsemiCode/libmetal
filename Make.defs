@@ -53,6 +53,7 @@ CSRCS += libmetal/lib/device.c
 CSRCS += libmetal/lib/dma.c
 CSRCS += libmetal/lib/init.c
 CSRCS += libmetal/lib/io.c
+CSRCS += libmetal/lib/irq.c
 CSRCS += libmetal/lib/log.c
 CSRCS += libmetal/lib/shmem.c
 CSRCS += libmetal/lib/version.c

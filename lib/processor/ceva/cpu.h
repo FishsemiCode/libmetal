@@ -6,7 +6,7 @@
 
 /*
  * @file	cpu.h
- * @brief	CPU specific primatives
+ * @brief	CPU specific primitives
  */
 
 #ifndef __METAL_CEVA_CPU__H__
@@ -15,6 +15,10 @@
 #define metal_cpu_yield()
 
 #ifdef TEAKLITE4
+/*
+ * The dummy implementation is enough here since
+ * tl42x don't support the out of order and multi core
+ */
 #define __sync_synchronize()
 #endif
 

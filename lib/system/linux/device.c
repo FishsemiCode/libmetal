@@ -31,13 +31,13 @@ struct linux_driver {
 	void			(*dev_irq_ack)(struct linux_bus *lbus,
 					     struct linux_device *ldev,
 					     int irq);
-	int 			(*dev_dma_map)(struct linux_bus *lbus,
+	int			(*dev_dma_map)(struct linux_bus *lbus,
 						struct linux_device *ldev,
 						uint32_t dir,
 						struct metal_sg *sg_in,
 						int nents_in,
 						struct metal_sg *sg_out);
-	void 			(*dev_dma_unmap)(struct linux_bus *lbus,
+	void			(*dev_dma_unmap)(struct linux_bus *lbus,
 						struct linux_device *ldev,
 						uint32_t dir,
 						struct metal_sg *sg,
@@ -250,6 +250,7 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 	} else {
 		ldev->device.irq_num =  1;
 		ldev->device.irq_info = (void *)(intptr_t)ldev->fd;
+		metal_linux_irq_register_dev(&ldev->device, ldev->fd);
 	}
 
 	return 0;
@@ -259,12 +260,6 @@ static void metal_uio_dev_close(struct linux_bus *lbus,
 				struct linux_device *ldev)
 {
 	(void)lbus;
-
-	if ((intptr_t)ldev->device.irq_info >= 0)
-		/* Normally this call would not be needed, and is added as precaution.
-		   Also for uio there is only 1 interrupt associated to the fd/device,
-		   we therefore do not need to specify a particular device */
-		metal_irq_unregister(ldev->fd, NULL, NULL, NULL);
 
 	if (ldev->override) {
 		sysfs_write_attribute(ldev->override, "", 1);

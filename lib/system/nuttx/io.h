@@ -32,21 +32,6 @@ struct metal_io_ops *metal_io_get_ops(void);
  */
 struct metal_io_region *metal_io_get_region(void);
 
-/**
- * @brief  Convert a physical address to virtual address.
- * @param[in]  phys  Physical address within segment.
- * @return  NULL if out of range, or corresponding virtual address.
- */
-void *metal_io_patova(metal_phys_addr_t phys);
-
-/**
- * @brief  Convert a virtual address to physical address.
- * @param[in]  virt  Virtual address within segment.
- * @return  METAL_BAD_PHYS if out of range, or corresponding
- *    physical address.
- */
-metal_phys_addr_t metal_io_vatopa(void *virt);
-
 #ifdef METAL_INTERNAL
 
 /**
