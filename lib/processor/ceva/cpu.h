@@ -20,4 +20,15 @@
  */
 #define __sync_synchronize()
 
+#ifdef CONFIG_ARCH_XC5
+static inline int __sync_lock_test_and_set(void* ptr, int flag)
+{
+  return 0;
+}
+
+static inline void __sync_lock_release(void *ptr)
+{
+}
+#endif
+
 #endif /* __METAL_CEVA_CPU__H__ */
